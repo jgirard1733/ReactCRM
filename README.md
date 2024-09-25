@@ -1,3 +1,5 @@
 # CRM Sample App with Lambda APIs
 
-This is sample text
+Small sample of a CRM (still work in progress).
+
+To see this in action go to.
