@@ -1,10 +1,18 @@
 const db = require('../scripts/database');
 
-async function getCustomers() {
+async function getCustomers(paramId) {
     let locationResult;
     try {
-        locationResult = await(db.queryCustomers());
-        locationResult = JSON.stringify(locationResult);
+        if(paramId !== null)
+        {
+            console.log('have paramId of: ' + paramId)
+            locationResult = await(db.queryCustomer("Customers",paramId));
+        }
+        else 
+        {
+            console.log('have no paramId')
+            locationResult = await(db.queryAllCustomers("Customers"));
+        }
         return locationResult;
     }
     catch(err){

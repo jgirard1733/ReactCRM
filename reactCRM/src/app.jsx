@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import Footer from "./components/footer/footer"
 import Home from "./pages/home/Home"
 import NavBar from "./components/navbar/navbar"
@@ -7,6 +8,9 @@ import Login from "./pages/login/login"
 import Customers from "./pages/customers/customers"
 import "./styles/app.scss"
 import {createBrowserRouter, RouterProvider, Outlet} from "react-router-dom"
+import Products from "./pages/product/products"
+import Customer from "./pages/customers/customer"
+import Product from "./pages/product/product"
 
 export function App() {
 
@@ -37,16 +41,24 @@ export function App() {
           element: <Home/>
         },
         {
-          path: "about",
+          path: "/about",
           element: <div>About</div>
         },
         {
-          path: "customers",
+          path: "/customers",
           element: <Customers/>
         },
         {
-          path: "products",
-          element: <div>Products</div>
+          path: "/products",
+          element: <Products/>
+        },
+        {
+          path: "/customer/:id",
+          element: <Customer/>
+        },
+        {
+          path: "/product/:id",
+          element: <Product/>
         }
       ]
     },

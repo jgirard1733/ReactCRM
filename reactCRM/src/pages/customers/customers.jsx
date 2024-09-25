@@ -1,7 +1,8 @@
 import  React from 'react';
 import DataTable from '../../components/dataTable/DataTable';
-import { userRows } from '../../data';
 import { useEffect, useState } from 'react';
+import "./customers.scss"
+import AddModal from '../../components/addModal/addModal'
 
 
 
@@ -11,7 +12,7 @@ const columns = [
   { field: "id", headerName: "ID", width: 90 },
   {
     field: "img",
-    headerName: "Avatar",
+    headerName: "Image",
     width: 100,
     renderCell: (params) => {
       return <img src={params.row.img || "/noavatar.png"} alt="" />;
@@ -42,7 +43,7 @@ const columns = [
     width: 200,
   },
   {
-    field: "createdAt",
+    field: "createdDate",
     headerName: "Created At",
     width: 200,
     type: "string",
@@ -58,54 +59,50 @@ const columns = [
 export default function Customers ()
 {
   const [data, setData] = useState([]);
+  const[open, setOpen] = useState(false)
 
-  const getCustomers = () => {
-    useEffect(() => {
-      const fetchData = async () => {
-        try {
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
 
-          const response = fetch('https://zuhjsc6ea9.execute-api.us-east-1.amazonaws.com/dev', 
-            { mode: 'cors', 
-              method: 'OPTIONS',
-              headers: {
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': 'https://localhost:5173', 
-                'Vary': 'Origin',
-                'Access-Control-Allow-Methods': 'GET,OPTIONS',  
-                'Access-Control-Allow-Headers': 'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,Access-Control-Allow-Origin,Access-Control-Allow-Methods', 
+        const response = fetch('/api/getCustomers', 
+          { 
+            mode: 'cors', 
+            method: 'GET',
+            headers: {
+              Accept: 'application/json',
             },
-            }).then(result => {
-              console.log(result)
-              if(result.ok) {
-                result.json().then(json => {
-                  console.log("fetch result: " + result)
-                }
-              )
-             }else { console.log("failed: " + result)}
-            })
-            
-          //const result = await response;
-  
-          //console.log('Result:' + JSON.stringify(result))
-  
-          //setData(result);
+          }).then(result => {
+            if(result.ok) {
+              result.json().then(json => {
+                setData(json)
+              }
+            )
+            }
+            else { 
+            console.log("failed: " + result)
+          }
+          })            
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
 
-        } catch (error) {
-          console.error('Error fetching data:', error);
-        }
-      };
-  
-      fetchData();
-  
-    }, []);
-  }
-  
-  getCustomers()
+    fetchData()
 
-  console.log('Data result' + data)
-  return (
-    <>
-    <div><DataTable columns={columns} rows={userRows}/></div>
-    </>
-  )
+  }, []);
+  
+    return (
+        <>
+        <div className="customers">
+          <div className="info">
+            <h1>Customers</h1>
+            <button onClick={() => setOpen(true)}>Add New Customer</button>
+          </div>
+          <DataTable heading="Customer" columns={columns} rows={data} />
+
+          {open && <AddModal heading="Customer" columns={columns} setOpen={setOpen} />}
+        </div>    
+        </>
+    )
 }

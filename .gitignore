@@ -1,0 +1,5 @@
+*.tfstate*
+.env
+.terraform
+node_modules
+/infrastructure/*terraform*
