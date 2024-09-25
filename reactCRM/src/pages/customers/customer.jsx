@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react';
 //import { singleCustomer } from "../../data"
 import "./customers.scss"
-import SinglePage from '../../components/singlePage/singlepage';
+import SinglePage from '../../components/singlePage/SinglePage';
 
 export default function Customer() {
     const params = useParams();
