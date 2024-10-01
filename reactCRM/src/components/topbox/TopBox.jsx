@@ -1,5 +1,5 @@
 import "./topBox.scss"
-import { Customers } from "../../data.js"
+import { Sellers } from "../../data.js"
 import React from "react";
 
 
@@ -7,18 +7,18 @@ export function TopBox() {
     return (
         <>
         <div className="topBox">
-            <h2>Top Customers</h2>
+            <h2>Top Sellers</h2>
             <div className="list">
-                {Customers.map(customer=>(
-                    <div className="listItem" key={customer.id}>
+                {Sellers.map(seller=>(
+                    <div className="listItem" key={seller.id}>
                         <div className="customer">
-                            <img src={customer.img} alt="" />
+                            <img src={seller.img} alt="" />
                             <div className="customerText">
-                                <span className="username">{customer.username}</span>
-                                <span className="email">{customer.email}</span>
+                                <span className="username">{seller.username}</span>
+                                <span className="email">{seller.email}</span>
                             </div>
                         </div>
-                        <span className="amount">${customer.amount}</span>
+                        <span className="amount">${seller.amount}</span>
                     </div>
                 ))}
             </div>

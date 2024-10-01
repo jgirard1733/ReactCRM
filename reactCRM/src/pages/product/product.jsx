@@ -43,7 +43,7 @@ export default function Product() {
       }, []);
     return (
         <>
-        { loader? <div>Loading....</div> :(
+        { loader? <div className='loader'></div> :(
         <div className="Product">
             <SinglePage {...singleProduct}/>
         </div>)}

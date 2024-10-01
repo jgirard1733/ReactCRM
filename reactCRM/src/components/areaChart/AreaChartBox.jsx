@@ -4,9 +4,9 @@ import React from "react";
 
 const props = {
   name: "", // String
-  books: 0, // number | String
-  clothes: 0, // number | String
-  electronic: 0, // number | String
+  life: 0, // number | String
+  annunity: 0, // number | String
+  auto: 0, // number | String
 };
 
 export function AreaChartBox(props) {
@@ -28,24 +28,24 @@ export function AreaChartBox(props) {
                         <Tooltip/>
                         <Area
               type="monotone"
-              dataKey="electronic"
+              dataKey="auto"
               stackId="1"
-              stroke="#8884d8"
-              fill="#8884d8"
+              stroke="#00C49F"
+              fill="#00C49F"
             />
             <Area
               type="monotone"
-              dataKey="clothes"
-              stackId="1"
-              stroke="#82ca9d"
-              fill="#82ca9d"
-            />
-            <Area
-              type="monotone"
-              dataKey="books"
+              dataKey="annunity"
               stackId="1"
               stroke="#ffc658"
               fill="#ffc658"
+            />
+            <Area
+              type="monotone"
+              dataKey="life"
+              stackId="1"
+              stroke="#FF8042"
+              fill="#FF8042"
             />
                     </AreaChart>
                 </ResponsiveContainer>

@@ -4,10 +4,6 @@ import { useEffect, useState } from 'react';
 import "./customers.scss"
 import AddModal from '../../components/addModal/addModal'
 
-
-
-
-
 const columns = [
   { field: "id", headerName: "ID", width: 90 },
   {
@@ -60,11 +56,12 @@ export default function Customers ()
 {
   const [data, setData] = useState([]);
   const[open, setOpen] = useState(false)
+  const [loader,setLoader] = useState(false)
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-
+        setLoader(true);
         const response = fetch('/api/getCustomers', 
           { 
             mode: 'cors', 
@@ -75,7 +72,19 @@ export default function Customers ()
           }).then(result => {
             if(result.ok) {
               result.json().then(json => {
-                setData(json)
+                var parsed = JSON.parse(JSON.stringify(json))
+                var rows = parsed.length
+                let jObject = []
+                for (let x = 0; x < rows; x++)
+                {
+                  var isInfo = parsed[x].hasOwnProperty('info')
+                  if (isInfo)
+                  {
+                   jObject.push(JSON.parse(parsed[x].info))
+                  }
+                }
+                setLoader(false)
+                setData(jObject)
               }
             )
             }
@@ -94,6 +103,7 @@ export default function Customers ()
   
     return (
         <>
+        { loader? <div className='loader'></div> :(
         <div className="customers">
           <div className="info">
             <h1>Customers</h1>
@@ -102,7 +112,8 @@ export default function Customers ()
           <DataTable heading="Customer" columns={columns} rows={data} />
 
           {open && <AddModal heading="Customer" columns={columns} setOpen={setOpen} />}
-        </div>    
+        </div>   
+        )} 
         </>
     )
 }

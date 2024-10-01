@@ -26,8 +26,6 @@ export default function Customer() {
                     result.json().then(json => {
                         setLoader(false)
                         setData(json)
-                        console.log('got single data:' + singleCustomer)
-                        console.log('got data:' + JSON.stringify(json))
 
                     })}
                     else { 
@@ -43,9 +41,9 @@ export default function Customer() {
       }, []);
     return (
         <>
-        { loader? <div>Loading....</div> :(
+        { loader? <div className='loader'></div> :(
         <div className="customer">
-            <SinglePage {...singleCustomer}/>
+            {<SinglePage {...singleCustomer}/>}
         </div>)}
         </>
     )

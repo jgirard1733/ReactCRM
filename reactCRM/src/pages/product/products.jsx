@@ -21,32 +21,33 @@ const columns = [
       width: 250,
     },
     {
-      field: "color",
-      type: "string",
-      headerName: "Color",
-      width: 150,
-    },
-    {
-      field: "price",
-      type: "string",
-      headerName: "Price",
-      width: 200,
-    },
-    {
       field: "producer",
       headerName: "Producer",
       type: "string",
       width: 200,
     },
     {
-      field: "createdAt",
+      field: "type",
+      type: "string",
+      headerName: "Type",
+      width: 150,
+    },
+    {
+      field: "length",
+      type: "string",
+      headerName: "Length",
+      width: 200,
+    },
+
+    {
+      field: "CreatedDate",
       headerName: "Created At",
       width: 200,
       type: "string",
     },
     {
       field: "inStock",
-      headerName: "In Stock",
+      headerName: "Eligible?",
       width: 150,
       type: "boolean",
     },
@@ -56,11 +57,12 @@ export default function Products ()
 {
   const [data, setData] = useState([]);
   const[open, setOpen] = useState(false)
+  const [loader,setLoader] = useState(false)
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-
+        setLoader(true);
         const response = fetch('/api/getProducts', 
           { 
             mode: 'cors', 
@@ -71,7 +73,19 @@ export default function Products ()
           }).then(result => {
             if(result.ok) {
               result.json().then(json => {
-                setData(json)
+                var parsed = JSON.parse(JSON.stringify(json))
+                var rows = parsed.length
+                let jObject = []
+                for (let x = 0; x < rows; x++)
+                {
+                  var isInfo = parsed[x].hasOwnProperty('info')
+                  if (isInfo)
+                  {
+                   jObject.push(JSON.parse(parsed[x].info))
+                  }
+                }
+                setLoader(false)
+                setData(jObject)
               }
             )
             }
@@ -90,15 +104,17 @@ export default function Products ()
   
     return (
         <>
-        <div className="products">
-          <div className="info">
-            <h1>Products</h1>
-            <button onClick={() => setOpen(true)}>Add New Product</button>
-          </div>
-          <DataTable heading="Product" columns={columns} rows={data} />
+         { loader? <div className='loader'></div> :(
+          <div className="products">
+            <div className="info">
+              <h1>Products</h1>
+              <button onClick={() => setOpen(true)}>Add New Product</button>
+            </div>
+            <DataTable heading="Product" columns={columns} rows={data} />
 
-          {open && <AddModal heading="Product" columns={columns} setOpen={setOpen} />}
-        </div>    
+            {open && <AddModal heading="Product" columns={columns} setOpen={setOpen} />}
+          </div>   
+        )} 
         </>
     )
 }

@@ -1,9 +1,14 @@
+@import "../../styles/variables.scss";
+@import "../../styles/responsive.scss";
+
 .navbar {
     width: 100%;
     padding: 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    background-color: $alt-soft-bg;
+    border-bottom-right-radius: 10px;
 
     .logo {
         display: flex;
@@ -12,12 +17,19 @@
         gap: 10px;
         width: 26px;
         height: 26px;
+        color: $soft-color;
     }
 
     .icons {
         display: flex; 
         align-items: center;
         gap: 20px;
+
+        .icon {
+           @include sm {
+            display: none;
+           } 
+        }
 
         .notification {
             position: relative;
@@ -41,6 +53,7 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            color: $soft-color;
             img {
                 width: 26px;
                 height: 26px;

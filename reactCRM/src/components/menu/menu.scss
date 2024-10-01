@@ -1,18 +1,28 @@
 @import "../../styles/variables.scss";
+@import "../../styles/responsive.scss";
 
 .menu {
+    background-color: $main-bg;
+    height: 100vh;
+    width: 180px;
+    padding-top: 20px;
     .item {
         display: flex;
         flex-direction: column;
         gap: 8px;
         margin-bottom: 20px;
+        color: $dark-color;
 
         .title {
             font-size: 12px;
             font-weight: 200;
-            color: $soft-color;
+            color: $dark-color;
             margin-left: 3px;
             text-transform: uppercase;
+
+            @include lg {
+                display: none;
+            }
         }
 
         .listItem {
