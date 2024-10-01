@@ -1,5 +1,9 @@
 # CRM Sample App with Lambda APIs
 
-This is a work in progress React applicaiton will APIs build in node js in AWS lambda.
+This is an Insurance CRM prototye.  The frontend is written using React.  And the backend is build using Node js.
 
-To view this code in action, visit: http://reactcrm-load-balancer-1592081436.us-east-1.elb.amazonaws.com/
+Terraform is used to deploy all the infrastructure as code using AWS ECS Fargate Docker container to host the web site.
+
+The data is housed in AWS DynamoDB, but that can easily be changed to any type of database.
+
+The site is not currently running due to the cost, but is fully functional.
